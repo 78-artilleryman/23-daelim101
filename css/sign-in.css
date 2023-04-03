@@ -1,0 +1,70 @@
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+#container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.inner{
+  width: 1200px;
+  
+}
+
+.logo a img{
+  width: 70px; 
+  height: 70px;
+  margin-left: 20px;
+}
+
+main{
+  width: 1200px;
+  height: 500px;
+  
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title h1{
+  width: 1200px;
+  text-align: center;
+  font-size: 70px;
+  margin-top: 50px;
+}
+
+.user_data{
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.user_data input{
+  width: 300px;
+  font-size: 20px;
+  padding: 5px;
+  margin: 10px;
+}
+.user_data .login{
+  width: 150px;
+  font-size: 20px;
+  padding: 5px;
+  margin: 10px auto;
+}
+.user_data .sign-in{
+  width: 200px;
+  font-size: 15px;
+  padding: 5px;
+  margin: 10px auto;
+  border: none;
+ background-color: white;
+}
+.user_data input[placeholder]{
+  text-align: center;
+}
+
