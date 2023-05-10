@@ -32,6 +32,7 @@ function Join() {
   const [ageMessage, setAgeMessage] = useState("");
   const [phoneMessage, setPhoneMessage] = useState("");
   const [studentNoMessage, setStudentNoMessage] = useState("");
+  const [fileMessage, setFileMessage] = useState("");
 
   // error 상태를 담을 state
   const [isEmail, setIsEmail] = useState(false);
@@ -192,13 +193,22 @@ function Join() {
         setIsStudentNo(true);
     }
   };
-
+ // 유효성 검사 (file)
   const onChangeFile = (e) =>{
     const currentFile = e.target.files[0];
+    const currentFileName = e.target.files[0].name;
+
     setFile(currentFile);
+    const fileRegExp = /.jpg/
     
-    
+    if(!fileRegExp.test(currentFileName)){
+      setFileMessage("사진을 등록해 주세요");
+      setIsFile(false);
+    }
+    else{
+      setFileMessage("");
       setIsFile(true);
+    }
 
   }
 
@@ -383,7 +393,8 @@ function Join() {
                       <h3 className="join_title"><label htmlFor="photo">본인 사진 첨부</label></h3>
                       <span className="box int_photo">
                           <input type="file" id="photo" multiple accept="image/*" onChange={onChangeFile} />
-                      </span>                                                                             
+                      </span>
+                      <span className="message">{fileMessage}</span>                                                                          
                   </div>                                            
                   <div className="btn_area">                        
                       <button type="submit" id="btnJoin" disabled={hasError}>
