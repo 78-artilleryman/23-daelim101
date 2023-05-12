@@ -1,0 +1,58 @@
+.action {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.comment {
+    padding-top: 50px;
+    text-align: center;
+    position: relative;
+}
+.winnerhodu {
+    max-width: 20%;
+}
+.kinghodu {
+    width: 40%;
+    align-items: center;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.kinghodu:hover {
+    transform: scale(1.2);
+}
+.vsImg {
+    flex: 1;
+    overflow: hidden;
+    padding-bottom: 30px;
+}
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.basic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.card {
+    background-color: #82AAE3;
+    border-radius: 30px;
+    width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;  
+    transform: translate(-50%,-50%);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  }
+.page {
+    flex-wrap: wrap;
+    height: 100vh;
+    background-color: #EAFDFC;
+  }
