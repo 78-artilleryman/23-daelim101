@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { auth } from "../firebase-config";
+import { auth } from "../firebaseCross";
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/MainPage.css';
 import { signOut } from 'firebase/auth';

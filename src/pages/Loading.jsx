@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { auth } from "../firebase-config";
+import { auth } from "../firebaseCross";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 

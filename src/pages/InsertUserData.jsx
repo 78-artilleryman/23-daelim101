@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // 파이어베이서 파일에서 import 해온 db
-import {db, auth, storage} from '../firebase-config'
+import {db, auth, storage} from '../firebaseCross'
 // db에 데이터에 접근을 도와줄 친구들
 import { setDoc, doc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";

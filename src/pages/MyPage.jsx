@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
-import { db, auth, storage } from '../firebase-config'
+import { db, auth, storage } from "../firebaseCross"
 import { getDoc, doc } from 'firebase/firestore'
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { Link } from "react-router-dom"

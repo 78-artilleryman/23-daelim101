@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth } from "../firebaseCross";
 import '../styles/Login.css';
 import { useNavigate, Link } from "react-router-dom";
 const Login = () => {

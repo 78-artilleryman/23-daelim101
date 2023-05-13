@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // 파이어베이스 파일에서 import 해온 auth
-import { auth } from "../firebase-config";
+import { auth } from "../firebaseCross";
 // db에 데이터에 접근을 도와줄 메서드
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 // 페이지를 이동할때 쓰는 메서드
