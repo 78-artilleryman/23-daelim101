@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // 로그인 메서드 이용
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

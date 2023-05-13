@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import '../styles/Loading.css';
 
-const Loading = () => {        
-    const [emailVerified, setEmailVerified] = useState(false);
-    const navigate = useNavigate();
+const Loading = () => {
+  const [emailVerified, setEmailVerified] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {  
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setEmailVerified(user.emailVerified);
@@ -34,14 +35,44 @@ const Loading = () => {
   }, [emailVerified, navigate]);
 
   return (
-    <div>
-      {emailVerified ? (
-        <span>이메일 인증 확인이 되었습니다. 잠시만 기다려주세요.</span>
-      ) : (
-        <span>이메일 인증 확인이 아직 안되었습니다...</span>
-      )}
+
+
+    <div className="main-site">
+      <div className="main-header pad-top wrapper" id="mainHeader">
+        {emailVerified ? (
+          <h1 className="text-giga">이메일 인증 확인이 되었습니다. 잠시만 기다려주세요.</h1>
+        ) : (
+          <h1 className="text-giga">이메일 인증 확인이 아직 안되었습니다...</h1>
+        )}
+      </div>
+
+      <div className="main-content space-top wrapper" role="main" id="mainContent">
+        <div className="loader loader-black loader-1"></div>
+
+        <div className="loader loader-2"></div>
+
+        <div className="loader loader-black loader-3"></div>
+
+        <div className="loader loader-black loader-4"></div>
+
+        <div className="loader loader-black loader-5"></div>
+
+        <div className="loader loader-6"></div>
+
+        <div className="loader loader-7"></div>
+
+        <div className="loader loader-8"></div>
+
+        <div className="loader loader-9"></div>
+
+        <div className="loader loader-10"></div>
+      </div>
+      <Link to="/"><p className="back">메인 화면으로 돌아가기</p></Link>
     </div>
+
+
+
   );
 }
-    
+
 export default Loading;
