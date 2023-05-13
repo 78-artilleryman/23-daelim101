@@ -32,9 +32,6 @@ body {
     width: 460px;
 }
 
-
-
-
 /* 입력폼 */
 
 input:focus {
@@ -74,56 +71,6 @@ input {
     font-family: Dotum,'돋움',Helvetica,sans-serif;    
 }
 
-.box.int_email {
-    padding-right: 110px;
-}
-
-.box.int_pass {
-    padding-right: 40px;
-}
-
-.box.int_pass_check {
-    padding-right: 40px;
-}
-
-
-
-.pswdImg {
-    width: 18px;
-    height: 20px;
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    margin-top: -10px;
-    cursor: pointer;
-}
-
-#bir_wrap {
-    display: table;
-    width: 100%;
-}
-
-#bir_yy {
-    display: table-cell;
-    width: 147px;
-    
-}
-
-#bir_mm {
-    display: table-cell;
-    width: 147px;
-    vertical-align: middle;
-}
-
-#bir_dd {
-    display: table-cell;
-    width: 147px;
-}
-
-#bir_mm, #bir_dd {
-    padding-left: 10px;
-}
 
 select {
     width: 100%;
@@ -163,11 +110,14 @@ select {
 
 /* 버튼 */
 
+
 .btn_area {
     margin: 30px 0 91px;
 }
 
-#btnJoin {
+
+
+#btnInsert {
     position:relative;
     left:50%;
     transform: translateX(-50%);
@@ -185,6 +135,6 @@ select {
     display:inline;
 }
     
-#btnJoin:hover {
+#btnInsert:hover {
     background-position: right;
   }

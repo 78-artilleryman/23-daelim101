@@ -1,119 +1,54 @@
 import { useState, useEffect } from 'react';
 // 파이어베이서 파일에서 import 해온 db
-import {db, auth} from './firebase-config'
+import {db, auth, storage} from '../firebase-config'
 // db에 데이터에 접근을 도와줄 친구들
-import { collection, getDocs, setDoc, doc } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { async } from '@firebase/util';
-import "./join.css";
+import { setDoc, doc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import "../styles/InsertUserData.css";
+// 페이지를 이동할때 쓰는 메서드
+import { useNavigate } from "react-router-dom"
 
-function Join() {
-  // input으로 받을 state
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [registerPasswordConfirm, setRegisterPasswordConfirm] = useState("");
+const InsertUserData = () => {
   const [newName, setNewName] = useState("");
   const [newGender, setNewGender] = useState("");
   const [newAge, setNewAge] = useState("");
   const [newMajor, setNewMajor] = useState("");
   const [newPhone, setNewPhone] = useState("");
   const [newStudentNo, setNewStudentNo] = useState("");
-
-  // message를 담을 state
-  const [emailMessage, setEmailMessage] = useState("");
-  const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+  const [file, setFile] = useState("");
+  
   const [nameMessage, setNameMessage] = useState("");
+  const [genderMessage, setGenderMessage] = useState("");
   const [ageMessage, setAgeMessage] = useState("");
+  const [majorMessage, setMajorMessage] = useState("");
   const [phoneMessage, setPhoneMessage] = useState("");
   const [studentNoMessage, setStudentNoMessage] = useState("");
+  const [fileMessage, setFileMessage] = useState("");
 
-  // error 상태를 담을 state
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isName, setIsName] = useState(false);
+  const [isGender, setIsGender] = useState(false);
   const [isAge, setIsAge] = useState(false);
+  const [isMajor, setIsMajor] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isStudentNo, setIsStudentNo] = useState(false);
+  const [isFile, setIsFile] = useState(false);
+
+  // navigate라는 변수에 저장 후 navigate의 인자로 설정한 path값을 넘겨주면 해당 경로로 이동
+  const navigate = useNavigate();
 
   // error를 체크해줄 state
   const [hasError, setHasError] = useState(false);
-  // changed를 true로 바꿔주면 되지않을까?
-  const [changed, setChanged] = useState(false);
 
- // 이따가 users 추가하고 삭제하는거 진행을 도와줄 state
-  const [users, setUsers] = useState([]);
-  // db의 users 컬렉션을 가져옴
-  const usersCollectionRef = collection(db, "user");
-
-   // 시작될때 한번만 실행 // 읽어오기 
-  useEffect(()=>{
-  	// 비동기로 데이터 받을준비
-    const getUsers = async () => {
-     // getDocs로 컬렉션안에 데이터 가져오기
-      const data = await getDocs(usersCollectionRef);
-      // users에 data안의 자료 추가. 객체에 id 덮어씌움
-      setUsers(data.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-    }
-
-    getUsers();
-    // 뭐든 동작할때마다 changed가 true값으로 변경되니까 화면을 그리고 다시 false로 돌려줘야지 다시 써먹는다.
-    setChanged(false)
-  },[changed]) // 처음에 한번 그리고, changed가 불릴때마다 화면을 다시 그릴거다
-  
+  const [percent, setPercent] = useState(0);
+    
   useEffect(() => {
-    if (isName && isEmail && isPassword && isPasswordConfirm && isAge && isPhone && isStudentNo) {
+    if (isName && isAge && isGender && isPhone && isMajor && isStudentNo && isFile) {
       setHasError(false); 
     } else {
       setHasError(true);
     }
-  }, [isName, isEmail, isPassword, isAge, isPasswordConfirm, isPhone, isStudentNo]); 
+  }, [isName, isAge, isGender, isPhone, isMajor, isStudentNo, isFile]); 
 
-  
-  // 유효성 검사 (email)
-  const onChangeEmail = (e) => {
-    const currentEmail = e.target.value;
-    setRegisterEmail(currentEmail);
-    const emailRegExp =
-      /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
- 
-    if (!emailRegExp.test(currentEmail)) {
-      setEmailMessage("이메일의 형식이 올바르지 않습니다!");
-      setIsEmail(false);
-    } else {
-      setEmailMessage("사용 가능한 이메일 입니다.");
-      setIsEmail(true);
-    }
-  };
-  // 유효성 검사 (password)
-  const onChangePassword = (e) => {
-    const currentPassword = e.target.value;
-    setRegisterPassword(currentPassword);
-    const passwordRegExp =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!passwordRegExp.test(currentPassword)) {
-      setPasswordMessage(
-        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-      );
-      setIsPassword(false);
-    } else {
-      setPasswordMessage("안전한 비밀번호 입니다.");
-      setIsPassword(true);
-    }
-  };
-  // 유효성 검사 (passwordConfirm)
-  const onChangePasswordConfirm = (e) => {
-    const currentPasswordConfirm = e.target.value;
-    setRegisterPasswordConfirm(currentPasswordConfirm);
-    if (registerPassword !== currentPasswordConfirm) {
-      setPasswordConfirmMessage("비밀번호가 똑같지 않아요!");
-      setIsPasswordConfirm(false);
-    } else {
-      setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
-      setIsPasswordConfirm(true);
-    }
-  };
   // 유효성 검사 (name)
   const onChangeName = (e) => {
     const currentName = e.target.value;
@@ -128,7 +63,31 @@ function Join() {
       setIsName(true);
     }
   };
-  // 유효성 검사 (Age)
+  // 유효성 검사 (gender)
+  const onChangeGender = (e) => {
+    const currentGender = e.target.value;
+    setNewGender(currentGender);
+    if (currentGender === "") {
+      setGenderMessage("성별을 선택해주세요!");
+      setIsGender(false);
+    } else {
+      setGenderMessage("");
+      setIsGender(true);
+    }
+  };
+  // 유효성 검사 (major)
+  const onChangeMajor = (e) => {
+    const currentMajor = e.target.value;
+    setNewMajor(currentMajor);
+    if (currentMajor === "") {
+      setMajorMessage("전공을 선택해주세요!");
+      setIsMajor(false);
+    } else {
+      setMajorMessage("");
+      setIsMajor(true);
+    }
+  }
+  // 유효성 검사 (age)
   const onChangeAge = (e) => {
     const currentAge = e.target.value;
     setNewAge(currentAge);
@@ -163,7 +122,7 @@ function Join() {
   const addHyphen = (e) => {
     const currentNumber = e.target.value;
     setNewPhone(currentNumber);
-    if (currentNumber.length == 3 || currentNumber.length == 8) {
+    if (currentNumber.length === 3 || currentNumber.length === 8) {
       setNewPhone(currentNumber + "-");
       onChangePhone(currentNumber + "-");
     } else {
@@ -186,113 +145,131 @@ function Join() {
         setIsStudentNo(true);
     }
   };
+  // 유효성 검사 (file)
+  const onChangeFile = (e) =>{
+    const currentFile = e.target.files[0];
+    const currentFileName = e.target.files[0].name;
+
+    setFile(currentFile);
+    const fileRegExp = /(\.jpg|\.jpeg|\.png)$/i;
+    
+    if(!fileRegExp.test(currentFileName)){
+      setFileMessage("JPG, JPEG, PNG 파일만 업로드해 주세요 !");
+      setIsFile(false);
+    }
+    else{
+      setFileMessage("");
+      setIsFile(true);
+    }
+
+  }
+  
+  // 스토리지 파일 업로드 메서드
+  function handleUpload(user) {
+    if (!file) {
+      alert("Please upload an image first!");
+      }
+      
+      const storageRef = ref(storage, `/user/${user}/${file.name}`);
+      
+      // progress can be paused and resumed. It also exposes progress updates.
+      // Receives the storage reference and the file to upload.
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+        const percent = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        
+        // update progress
+        setPercent(percent);
+        },
+        (err) => console.log(err),
+        () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+        console.log(url);
+        });
+        }
+        );
+      
+  }
 
   // 회원가입 및 fireStroe 데이터 생성
-  const createUsers = async (e) =>{
+  const insertData = async (e) =>{
     e.preventDefault();
-    // 회원가입(이메일, 비밀번호)
     try {
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            registerEmail,
-            registerPassword
-        );
-        const user = userCredential.user;
-        console.log(user);
-        
         // Firebase Authentication에서 생성된 사용자 UID를 가져와 Firestore에 저장
-        await setDoc(doc(db, "user", user.uid), {
+        await setDoc(doc(db, "user", auth.currentUser.uid), {
             name: newName,
             gender: newGender,
             age: newAge,
             major: newMajor,
             phone: newPhone,
-            studentNo: newStudentNo
-        });
-        
-        // 화면 업데이트를 위한 state 변경
-        setChanged(true);
+            studentNo: newStudentNo            
+        });                
+        handleUpload(auth.currentUser.uid);
+        console.log("파일 업로드 성공");
+        alert("회원가입을 축하드립니다! 메인페이지로 이동합니다.");
+        navigate('/');
     } catch (error) {
         console.log(error.message);
     }
 }
 
-  return (
-    // 회원가입 페이지 html
-    <form onSubmit={createUsers}>
+return (
+    // 유저 정보 입력 페이지 html
+    <form onSubmit={insertData}>
         <div id="header">
-          <img src="img/Daelim_logo.png" id="logo" />
+          <img src="img/Daelim_logo.png" id="logo" alt="Daelim101 Logo"/>
         </div>
         <div className="wrapper">
-              <div id="content">
-                  <div>
-                      <h3 className="join_title">
-                          <label htmlFor="email">이메일</label>
-                      </h3>
-                      <span className="box int_email">
-                        <input type="text" id="email" className="int" maxLength="30" onChange={onChangeEmail}/>                       
-                      </span>
-                      <span className="message">{emailMessage}</span>
-                      
-                  </div>
-                  <div>
-                      <h3 className="join_title"><label htmlFor="pswd1">비밀번호</label></h3>
-                      <span className="box int_pass">
-                          <input type="text" id="pswd1" className="int" maxLength="20" onChange={onChangePassword}/>
-                          <span id="alertTxt">사용불가</span>
-                      </span>
-                      <span className="message">{passwordMessage}</span>
-                  </div>
-                  <div>
-                        <h3 className="join_title"><label htmlFor="pswd2">비밀번호 재확인</label></h3>
-                        <span className="box int_pass_check">
-                            <input type="text" id="pswd2" className="int" maxLength="20" onChange={onChangePasswordConfirm}/>
-                        </span>
-                        <span className="message">{passwordConfirmMessage}</span>
-                </div>
+              <div id="content">                                       
                    <div>
-                     <h3 className="join_title"><label htmlFor="name">이름</label></h3>
+                     <h3><label htmlFor="name">이름</label></h3>
                       <span className="box int_name">
                           <input type="text" id="name" className="int" maxLength="4" onChange={onChangeName}/>
                       </span>
                       <span className="message">{nameMessage}</span>
                   </div>
                   <div>
-                     <h3 className="join_title"><label htmlFor="age">나이</label></h3>
+                     <h3><label htmlFor="age">나이</label></h3>
                       <span className="box int_age">
                           <input type="text" id="age" className="int" maxLength="2" onChange={onChangeAge}/>
                       </span>
                       <span className="message">{ageMessage}</span>
                   </div>
                   <div>
-                      <h3 className="join_title"><label htmlFor="gender">성별</label></h3>
+                      <h3><label htmlFor="gender">성별</label></h3>
                       <span className="box gender_code">
-                          <select id="gender" className="sel" onChange={(event)=> {setNewGender(event.target.value)}}>                              
-                              <option>성별</option>
+                          <select id="gender" className="sel" onChange={onChangeGender}>                                                            
+                              <option value="">성별 선택</option>
                               <option value="M">남자</option>
                               <option value="F">여자</option>
                           </select>
                       </span>                      
+                      <span className="message">{genderMessage}</span>
                   </div>
                   <div>
-                      <h3 className="join_title"><label htmlFor="phoneNo">휴대전화</label></h3>
+                      <h3><label htmlFor="phoneNo">휴대전화</label></h3>
                       <span className="box int_phone">
                           <input type="tel" id="phone" className="int" maxLength="16" placeholder="하이픈(-) 형식으로 입력해주세요" onChange={addHyphen}/>
                       </span>
                       <span className="message">{phoneMessage}</span>
                   </div>
                   <div>
-                      <h3 className="join_title"><label htmlFor="studentNo">학번</label></h3>
+                      <h3><label htmlFor="studentNo">학번</label></h3>
                       <span className="box int_studentNo">
                           <input type="text" id="studentNo" className="int" maxLength="9" onChange={onChangeStudentNo}/>
                       </span>
                       <span className="message">{studentNoMessage}</span>
                   </div>
                   <div>
-                      <h3 className="join_title"><label htmlFor="major">전공</label></h3>
+                      <h3><label htmlFor="major">전공</label></h3>
                       <span className="box major_code">
-                          <select id="major" className="sel" onChange={(event)=> {setNewMajor(event.target.value)}}>
-                              <option>전공 선택</option>
+                          <select id="major" className="sel" onChange={onChangeMajor}>         
+                              <option value="">전공 선택</option>                     
                               <option value="ai">AI시스템과</option>
                               <option value="robot">로봇자동화공학과</option>
                               <option value="architectural">건축과</option>
@@ -326,22 +303,27 @@ function Join() {
                               <option value="navy">해군기술부사관과</option>
                           </select>
                       </span>                      
+                      <span className="message">{majorMessage}</span>
                   </div>
                   <div>
-                      <h3 className="join_title"><label htmlFor="photo">본인 사진 첨부</label></h3>
+                      <h3><label htmlFor="photo">본인 사진 첨부</label></h3>
                       <span className="box int_photo">
-                          <input type="file" id="photo" multiple />
-                      </span>                                                                             
+                          <input type="file" id="photo" multiple accept="image/*" onChange={onChangeFile}/>
+                      </span>       
+                      <span className="message">{fileMessage}</span>                                                                                                                                                
                   </div>                                            
                   <div className="btn_area">                        
-                      <button type="submit" id="btnJoin" disabled={hasError}>
-                          <span>가 입 하 기</span>
+                      <button type="submit" id="btnInsert" disabled={hasError} >
+                          <span>입 력 완 료</span>
                       </button>
                   </div>
               </div>
           </div>
     </form> 
   );
+
+
 }
 
-export default Join;
+export default InsertUserData;
+
