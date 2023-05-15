@@ -177,7 +177,7 @@ const InsertUserData = () => {
       alert("Please upload an image first!");
       }
       
-      const storageRef = ref(storage, `/user/${user}/${file.name}`);
+      const storageRef = ref(storage, `/${userGneder}/${user}/${file.name}`);
       
       // progress can be paused and resumed. It also exposes progress updates.
       // Receives the storage reference and the file to upload.
