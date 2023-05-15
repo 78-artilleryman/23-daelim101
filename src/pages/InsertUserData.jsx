@@ -16,6 +16,7 @@ const InsertUserData = () => {
   const [newPhone, setNewPhone] = useState("");
   const [newStudentNo, setNewStudentNo] = useState("");
   const [file, setFile] = useState("");
+  const [userGneder, setUserGender] = useState("");
   
   const [nameMessage, setNameMessage] = useState("");
   const [genderMessage, setGenderMessage] = useState("");
@@ -73,6 +74,12 @@ const InsertUserData = () => {
     } else {
       setGenderMessage("");
       setIsGender(true);
+      if(currentGender === "M"){
+        setUserGender("user-M")
+      }
+      else{
+        setUserGender("user-F")
+      }
     }
   };
   // 유효성 검사 (major)
@@ -201,7 +208,7 @@ const InsertUserData = () => {
     e.preventDefault();
     try {
         // Firebase Authentication에서 생성된 사용자 UID를 가져와 Firestore에 저장
-        await setDoc(doc(db, "user", auth.currentUser.uid), {
+        await setDoc(doc(db, userGneder, auth.currentUser.uid), {
             name: newName,
             gender: newGender,
             age: newAge,
