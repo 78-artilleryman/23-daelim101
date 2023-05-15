@@ -2,21 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { auth } from "../firebase-config";
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/MainPage.css';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 const MainPage = () => {
 
   const [email, setEmail] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
   const navigate = useNavigate();
 
+  // 유저의 emailVerified 값이 바뀐게 확인되면 로그인 상태가 나오도록 함
   useEffect(() => {
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      setEmail(currentUser.email);
-      setIsVisible(true);
-    }
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setEmailVerified(user.emailVerified);
+      }
+    });
 
+    // 1초마다 Firebase에서 현재 로그인한 사용자의 이메일 인증 상태를 가져와서 체크
+    const intervalId = setInterval(() => {
+      if (emailVerified) {
+        setEmail(auth.currentUser.email);
+      }
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        currentUser.reload().then(() => {
+          setEmailVerified(currentUser.emailVerified);
+        });
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+      unsubscribe();
+    };
+  }, [emailVerified, navigate]);
+
+  // 로그아웃 구현
   const Logout = () => {
     signOut(auth).then(() => {
       navigate('/login');
@@ -34,10 +54,10 @@ const MainPage = () => {
         </div>
         <div className="Rhead">
           <div>
-            {isVisible || <Link to="login"><p>로그인</p></Link>}
-            {isVisible || <Link to="signup"><p>회원가입</p></Link>}
-            {isVisible && <Link to="mypage"><p>{email}님 안녕하세요 !</p></Link>}
-            {isVisible && <button onClick={Logout}>Logout</button>}
+            {emailVerified || <Link to="login"><p>로그인</p></Link>}
+            {emailVerified || <Link to="signup"><p>회원가입</p></Link>}
+            {emailVerified && <Link to="mypage"><p>{email}님 안녕하세요 !</p></Link>}
+            {emailVerified && <button onClick={Logout}>Logout</button>}
           </div>
           <img src="images/masages.png" />
           <img src="images/my.png" />

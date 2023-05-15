@@ -9,6 +9,7 @@ import "../styles/InsertUserData.css";
 import { useNavigate } from "react-router-dom"
 
 const InsertUserData = () => {
+  // input으로 받을 state
   const [newName, setNewName] = useState("");
   const [newGender, setNewGender] = useState("");
   const [newAge, setNewAge] = useState("");
@@ -17,6 +18,7 @@ const InsertUserData = () => {
   const [newStudentNo, setNewStudentNo] = useState("");
   const [file, setFile] = useState("");
   
+  // message를 담을 state
   const [nameMessage, setNameMessage] = useState("");
   const [genderMessage, setGenderMessage] = useState("");
   const [ageMessage, setAgeMessage] = useState("");
@@ -25,6 +27,7 @@ const InsertUserData = () => {
   const [studentNoMessage, setStudentNoMessage] = useState("");
   const [fileMessage, setFileMessage] = useState("");
 
+  // 유효성 검사 에러 상태를 담는 state
   const [isName, setIsName] = useState(false);
   const [isGender, setIsGender] = useState(false);
   const [isAge, setIsAge] = useState(false);
@@ -41,6 +44,7 @@ const InsertUserData = () => {
 
   const [percent, setPercent] = useState(0);
     
+  // 폼 데이터 값이 들어가지 않을 경우 버튼이 클릭되지 않도록 수정
   useEffect(() => {
     if (isName && isAge && isGender && isPhone && isMajor && isStudentNo && isFile) {
       setHasError(false); 
@@ -316,6 +320,8 @@ return (
                       <button type="submit" id="btnInsert" disabled={hasError} >
                           <span>입 력 완 료</span>
                       </button>
+                      {hasError && <span className="message">모든 정보가 정확히 입력되었는지 확인해주세요 !</span>}
+                      {hasError || <span className="message">모든 정보가 정확히 입력되었습니다 ^^</span>}
                   </div>
               </div>
           </div>
