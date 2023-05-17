@@ -54,6 +54,7 @@ const MainPage = () => {
         </div>
         <div className="Rhead">
           <div>
+            <Link to="worldcup"><p>월드컵 가기</p></Link>
             {emailVerified || <Link to="login"><p>로그인</p></Link>}
             {emailVerified || <Link to="signup"><p>회원가입</p></Link>}
             {emailVerified && <Link to="mypage"><p>{email}님 안녕하세요 !</p></Link>}

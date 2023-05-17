@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Loading.css';
 
+
 const Loading = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const navigate = useNavigate();
