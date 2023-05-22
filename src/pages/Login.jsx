@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
+import { auth } from "../config/firebase-config";
 import '../styles/Login.css';
 import { useNavigate, Link } from "react-router-dom";
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
   // 로그인 메서드 이용
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPersistence(auth, browserSessionPersistence)
     try {
       const userCredential = await signInWithEmailAndPassword(auth,
         email,

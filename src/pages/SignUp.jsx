@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 // 파이어베이스 파일에서 import 해온 auth
-import { auth } from "../firebase-config";
+import { auth } from "../config/firebase-config";
 // db에 데이터에 접근을 도와줄 메서드
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, browserSessionPersistence, setPersistence } from "firebase/auth";
 // 페이지를 이동할때 쓰는 메서드
 import { useNavigate, Link } from "react-router-dom";
 // 회원가입 폼 css
@@ -88,6 +88,7 @@ const SignUp = () => {
   // 회원가입 생성 버튼에 넣어줄 메서드
   const createUsers = async (e) => {
     e.preventDefault();
+    setPersistence(auth, browserSessionPersistence)
     // 회원가입 생성
     try {
         const userCredential = await createUserWithEmailAndPassword(

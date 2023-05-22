@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // 파이어베이서 파일에서 import 해온 db
-import {db, auth, storage} from '../firebase-config'
+import {db, auth, storage} from '../config/firebase-config'
 // db에 데이터에 접근을 도와줄 친구들
 import { setDoc, doc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -45,7 +45,7 @@ const InsertUserData = () => {
 
   const [percent, setPercent] = useState(0);
     
-  // 폼 데이터 값이 들어가지 않을 경우 버튼이 클릭되지 않도록 수정
+  // 폼 데이터 값이 들어가지 않을 경우 버튼이 클릭되지 않도록 처리
   useEffect(() => {
     if (isName && isAge && isGender && isPhone && isMajor && isStudentNo && isFile) {
       setHasError(false); 
@@ -78,6 +78,7 @@ const InsertUserData = () => {
     } else {
       setGenderMessage("");
       setIsGender(true);
+      
       if(currentGender === "M"){
         setUserGender("user-M")
       }
@@ -145,7 +146,7 @@ const InsertUserData = () => {
     const currentStudentNo = e.target.value;
     setNewStudentNo(currentStudentNo); 
     const StudentNoRegExp =
-    /[0-9]{9}/;
+    /[a-zA-Z0-9]{9}/;
     if (!StudentNoRegExp.test(currentStudentNo)) {
         setStudentNoMessage(
         "9자리의 학번을 입력해주세요!"
@@ -233,7 +234,7 @@ return (
     // 유저 정보 입력 페이지 html
     <form onSubmit={insertData}>
         <div id="header">
-          <img src="img/Daelim_logo.png" id="logo" alt="Daelim101 Logo"/>
+          <img src="img/daelimlogo.png" id="logo" alt="Daelim101 Logo"/>
         </div>
         <div className="wrapper">
               <div id="content">                                       
