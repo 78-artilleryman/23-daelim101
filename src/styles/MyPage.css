@@ -1,106 +1,453 @@
-      body {
-        margin: 0;
-      }
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+  color: var(--background-color);
+}
 
-      
+/*MainPage에서 header부분만 가져옴*/
+.header_mypage{
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #000;
+  background-color: #82aae3;
+}
 
-      /* 커서 올릴 시 이미지 크게(모든 이미지 파일에 적용) */
-      img:hover {
-        transform: scale(1.7);
-        transform: scale(1.7);
-        -webkit-transform: scale(1.7); /* 크롬 */
-        -moz-transform: scale(1.7); /* 파이어폭스 */
-        -o-transform: scale(1.7); /* 오페라 */
-        z-index: 1;
-        align-items: center;
-      }
+.Lhead{
+  display: flex;
+  float: left;
+  height: 80px;
+  line-height: 110px;
+}
+.Lhead li {
+  float: left;
+}
 
-      .card {
-        width: 700px;
-        height: 400px;
-        background-color: rgb(0,166,221);
-        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        overflow: hidden;
-        margin: 50px auto;
-        display: flex;
-        position: relative;
-      }
+.Lhead h1{
+  padding: 25px 0;
+}
 
-      .profile {
-        padding: 70px 0 0 60px;
-      }
 
-      .profile img {
-        border: 1px solid #ffff;
-        border-radius: 10px;
-        width: 150px;
-        height: 180px;
-        transition: all 0.3s ease-in-out;
-      }
 
-      .info {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 60px 0 0 60px;
-        font-size: 15px;
-        font-family: 'Oswald', sans-serif;
-        color: #eeee;
-      }
-      .name {
-        font-weight: 900;
-        font-size: 16px;
-      }
-      .contacts {
-        font-size: 15px;
-        opacity: 0.5;
-        font-family: 'Roboto Mono', monospace;
-        font-style: italic;
-      }
+.Rhead {
+  display: flex;
+flex-direction: column;
+  float: right;
+  height: 80px;
+  line-height: 40px;
+  color:white
+}
 
-      .daelim{
-        position: absolute;
-        margin: -7% 0 0 50%;
-      }
+.navigation p {    
+  display: inline-block;
+  margin-right: 10px;  
+}
 
-      .daelim img{
-        width: 800px;
-        height: 500px;
-        transform: scale(1); /* 이미지 사이즈 고정 */
-      }
+.masages img{
+  width: 50px;
+  height: 50px;
+}
+.masages {
+  margin-top: -10px;
+  margin-left: auto;
+}
 
-      .full{
-        width: 200px;
-        height: 60px;
-        bottom: 50px;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #008CBA;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        margin: 0 auto;
-        display: block;
-      }
+/*여기까지*/
 
-      .footer{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0px 0 0 0px;
-      }
+/* 커서 올릴 시 이미지 크게(모든 이미지 파일에 적용) */
+/* img:hover { */
+ /*  transform: scale(1.7);
+  transform: scale(1.7);
+  -webkit-transform: scale(1.7);  크롬 */
+  /* -moz-transform: scale(1.7);  파이어폭스 */
+  /* -o-transform: scale(1.7); 오페라 */
+  /* z-index: 1; */
+/*     align-items: center; */
+/*   }  */
 
-      /* 하단 코멘트 */
-      .comment {
-        font-size: 16px;
-        font-style: italic;
-      }
-      .goMain {        
-          color:black;    
-      }
-      p{
-        text-align: center; margin-top: auto; font-size: 20px; font-weight: bold; color: #fff;
-      }
-      
+.card {
+  width: 700px;
+  height: 350px;
+  background-color: #BFEAF5;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 50px auto;
+  display: flex;
+  position: relative;
+}
+
+.profile {
+  display: flex; 
+  flex-direction: column;
+  padding: 70px 0 0 60px;
+}
+
+#profile-image {
+  border: 2px solid #ffff;
+  border-radius: 10px;
+  width: 150px;
+  height: 180px;
+  /* transition: all 0.3s ease-in-out; */
+  object-fit: cover;
+}
+
+#photo {
+  position: absolute; /* 자식 요소에 absolute 포지션 설정 */
+  top: 50%; /* 부모 요소의 상단 기준으로 50% 위치 */
+  left: 50%; /* 부모 요소의 좌측 기준으로 50% 위치 */
+  transform: translate(-50%, -50%); /* 자식 요소의 중앙 위치 조정 */
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 0 0 60px;
+  font-size: 15px;
+  font-family: 'Oswald', sans-serif;
+  color: #000000;
+}
+
+.name {
+  font-weight: 900;
+  font-size: 16px;
+  color: #000000;
+}
+.contacts {
+  font-size: 15px;
+  opacity: 10;
+  font-family: 'Roboto Mono', monospace;
+  font-style: italic;
+  color: #000000;
+}
+
+.daelim{
+  position: absolute;
+  margin: -8% 0 0 53%;
+}
+
+.daelim img{
+  width: 650px;
+  height: 450px;
+  transform: scale(1); /* 이미지 사이즈 고정 */
+}
+
+.ranking {
+  text-align: center; margin-top: auto; font-size: 20px; font-weight: bold; color: #000000;;
+}
+
+.rankingN{
+  text-align: center; margin-top: auto; font-size: 20px; font-weight: bold; color: #000000; font-size: 30px;
+}
+
+/* Footer */
+
+footer{
+  position: absolute;
+  bottom: 0;
+  list-style: none;
+  width: 100%;
+  height:100px;  /* 높이 */
+  margin-top: 70px;
+  background-color: #EAFDFC;
+  border-top:3px solid #EAFDFC;
+  }
+#bottomMenu{
+  list-style: none;
+  width:100%;
+  height:20px;
+  position:relative;  
+}
+#bottomMenu ul li:last-child{
+  list-style: none;
+  border:none;  /* 마지막 항목에는 오른쪽 테두리 없음 */  
+}
+#bottomMenu ul {
+  list-style: none;
+  margin-top:15px;  
+}
+#bottomMenu ul li{
+  float:left;  /* 가로로 배치 */ 
+  padding:5px 20px;
+  border-right:1px solid #ddd;   /* 항목 오른쪽에 테두리 */ 
+}
+#bottomMenu ul li:last-child{
+  border:none;  /* 마지막 항목에는 오른쪽 테두리 없음 */  
+}
+#bottomMenu ul li a, #bottomMenu ul li a:visited {  
+  font-size:15px;  /* 글자 크기 */ 
+    /* 글자 색 */ 
+}
+#sns {
+  position:absolute;  
+  right:0;  /* 오른쪽 끝에 배치 */ 
+}
+#sns ul li{
+  border:none;  /* 테두리 없이 */
+  padding:5px;   
+} 
+#company{
+  clear:left;  /* 플로팅 해제. clear:both도 가능 */
+  margin-top:25px;  /* 위쪽 마진 */
+  margin-left:20px;  /* 왼쪽 마진 */ 
+}
+
+
+
+/*모달내부*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+  
+}
+
+.modal-content {
+  height: 0 auto;
+  background-color: white;
+  margin: 0 auto;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 350px;
+  font-size: 16px;
+  color: #555;
+  border-radius: 5px;
+}
+
+.close-btn {
+  border: none;
+  background-color: #fff;
+  color: #82AAE3;
+  float: right;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  margin-top: 10px;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+
+
+input[type=submit] {
+  margin-top: 10px;
+  background-color: #82AAE3;
+  color: #333;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #ddd;
+}
+
+
+
+
+
+/* 전체 wrapper */
+#wrapper {
+  position: relative;
+  height: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#content {
+  line-height: 0%;
+}
+
+/* 입력폼 */
+input:focus {
+  outline: none;
+}
+
+h3 {
+  margin: 19px 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.box {
+  display: block;
+  width: 100%;
+  height: 35px;
+  border: solid 1px #dadada;
+  padding: 10px 14px 10px 14px;
+  box-sizing: border-box;
+  background: #fff;
+  position: relative;
+}
+
+.int {
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 15px;
+  border: none;
+  background: #fff;
+  font-size: 15px;
+}
+
+input {
+  font-family: Dotum,'돋움',Helvetica,sans-serif;    
+}
+
+.box.int_id {
+  padding-right: 110px;
+}
+
+.box.int_pass {
+  padding-right: 40px;
+}
+
+.box.int_pass_check {
+  padding-right: 40px;
+}
+
+.pswdImg {
+  width: 18px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
+#bir_wrap {
+  display: table;
+  width: 100%;
+}
+
+#bir_yy {
+  display: table-cell;
+  width: 147px;
+}
+
+#bir_mm {
+  display: table-cell;
+  width: 147px;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+
+#bir_dd {
+  display: table-cell;
+  width: 147px;
+  padding-left: 10px;
+}
+
+select {
+  position: absolute; /* 자식 요소에 absolute 포지션 설정 */
+  top: 50%; /* 부모 요소의 상단 기준으로 50% 위치 */
+  left: 50%; /* 부모 요소의 좌측 기준으로 50% 위치 */
+  transform: translate(-50%, -50%); /* 자식 요소의 중앙 위치 조정 */
+  width: 100%;
+  height: 29px;
+  font-size: 15px;
+  background: #fff url(https://static.nid.naver.com/images/join/pc/sel_arr_2x.gif) 100% 50% no-repeat;
+  background-size: 20px 10px;
+  -webkit-appearance: none;
+  display: inline-block;
+  text-align: start;
+  border: none;
+  cursor: default;
+  font-family: Dotum,'돋움',Helvetica,sans-serif;
+}
+
+/* 에러메세지 */
+.error_next_box {
+  margin-top: 9px;
+  font-size: 6px;
+  color: red;
+  display: none;
+}
+
+.ranking {
+  margin-top: -10px;
+}
+
+.rankingtext {
+  text-align: center;  
+  font-size: 20px; 
+  font-weight: bold; 
+  color: #000000;
+}
+
+.rankingN {
+  text-align: center;
+  margin-top: -8px;  
+  font-weight: bold; 
+  color: #000000; 
+  font-size: 30px;
+}
+
+#alertTxt {
+  position: absolute;
+  top: 19px;
+  right: 38px;
+  font-size: 8px;
+  color: red;
+  display: none;
+}
+
+/* 버튼 */
+.btn_area {
+  margin: 30px 0 91px;
+}
+
+#btnJoin {
+  position:relative;
+  left:50%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width:100%;
+  height:40px;
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+    background-position: left;
+    background-size: 200%;
+    color:white;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    transition: 0.4s;
+    display:inline;
+}
+    
+#btnJoin:hover {
+    background-position: right;
+  }

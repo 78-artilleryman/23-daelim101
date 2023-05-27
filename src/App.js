@@ -10,6 +10,7 @@ import { useScript } from "./hooks/hook";
 import StartPage from "./worldcupPages/startpage";
 import VsPage from "./worldcupPages/vspage";
 import WorldCup from "./worldcupPages/vs16page";
+import AllRank from './pages/AllRank';
 import { LoadRandomPhotos } from "./worldcupPages/random";
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path='/worldcup' element={<StartPage/>}></Route>
           <Route path='/worldcup/vs8' element={<VsPage/>}></Route>
           <Route path='/worldcup/vs16' element={<WorldCup downloadURLs={downloadURLs}/>}></Route>     
+          <Route path="/allRank" element={<AllRank />}></Route>  
         </Routes>
       </BrowserRouter>      
     </div>
