@@ -6,39 +6,44 @@ import InsertUserData from './pages/InsertUserData';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
 import MainPage from './pages/MainPage';
-import { useScript } from "./hooks/hook";
 import StartPage from "./worldcupPages/startpage";
 import VsPage from "./worldcupPages/vspage";
 import WorldCup from "./worldcupPages/vs16page";
 import { LoadRandomPhotos } from "./worldcupPages/random";
+import AllRank from "./pages/AllRank";
 
 
 
 function App() {
-
   const [downloadURLs, setDownloadURLs] = useState([]);
   
 
   useEffect(() => {
-    // Load random photos when the component mounts
-    LoadRandomPhotos().then((urls) => {
-      setDownloadURLs(urls);
+    LoadRandomPhotos(5)
+    .then((downloadURLs) => {
+      console.log(downloadURLs); // 랜덤으로 선택된 5장의 사진의 다운로드 URL 출력
+    })
+    .catch((error) => {
+      console.log(error);
     });
   }, []);
+  
 
   return (
     <div className="daelim101">      
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage />}></Route>
-          <Route path="/mypage" element={<MyPage />}></Route>
-          <Route path="login" element={<Login/>}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/loading" element={<Loading />}></Route>
-          <Route path="/userData" element={<InsertUserData />}></Route>    
-          <Route path='/worldcup' element={<StartPage/>}></Route>
-          <Route path='/worldcup/vs8' element={<VsPage/>}></Route>
-          <Route path='/worldcup/vs16' element={<WorldCup downloadURLs={downloadURLs}/>}></Route>     
+          <Route path="/" element={<MainPage />} />
+          <Route path="/mypage" element={<MyPage />}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<SignUp />}/>
+          <Route path="/loading" element={<Loading />}/>
+          <Route path="/userData" element={<InsertUserData />}/>
+          <Route path='/random' element={<LoadRandomPhotos/>}/>
+          <Route path='/worldcup' element={<StartPage/>}/>
+          <Route path='/worldcup/vs8' element={<VsPage/>}/>
+          <Route path='/worldcup/vs16' element={<WorldCup />}/>
+          <Route path="/allRank" element={<AllRank />}></Route>       
         </Routes>
       </BrowserRouter>      
     </div>

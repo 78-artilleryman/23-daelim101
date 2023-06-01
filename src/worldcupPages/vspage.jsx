@@ -10,39 +10,44 @@ import { AiOutlineLink } from "react-icons/ai";
 import { RiKakaoTalkLine } from "react-icons/ri";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { flexbox } from '@mui/system';
+import { storage } from "../config/firebase-config";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+
+
+
 
 const items = [
     {
         name : "이름",
-        src : require("./img/1.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/2.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/3.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/4.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/5.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/6.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/7.jpg")
+        src : ""
     },
     {
         name : "이름",
-        src : require("./img/8.jpg")
+        src : ""
     },
 ];
 
@@ -67,10 +72,41 @@ function VsPage(){
     const [winnerdisplay, setWinnerDisplay] = useState(false);
     const currentUrl = window.location.href;
 
+
+    
     useEffect(() => {
+        const getRandomPhotoAndAssignToItem = async (index) => {
+            const folderRef = ref(storage, "user-W/"); // 파이어베이스 Storage 폴더 경로 설정
+
+        // 해당 폴더의 모든 폴더 목록 가져오기
+        const folders = await listAll(folderRef);
+
+        // 랜덤한 폴더 선택
+        const randomFolderIndex = Math.floor(Math.random() * folders.prefixes.length);
+        const randomFolder = folders.prefixes[randomFolderIndex];
+
+        // 선택한 폴더의 모든 파일 목록 가져오기
+        const files = await listAll(randomFolder);
+
+        // 랜덤한 인덱스 선택
+        const randomFileIndex = Math.floor(Math.random() * files.items.length);
+
+        // 랜덤한 인덱스의 파일 다운로드 URL 가져오기
+        const randomFile = files.items[randomFileIndex];
+        const downloadURL = await getDownloadURL(randomFile);
+
+        items[index].src = downloadURL;
+        };
+
+   
+    items.forEach((item, index) => {
+        getRandomPhotoAndAssignToItem(index);
+    });
+
         items.sort(() => Math.random() - 0.5);
         setHodu(items);
         setDisplays([items[0], items[1]]);
+
     }, []);
 
     const clickEvent = hodu => () => {
