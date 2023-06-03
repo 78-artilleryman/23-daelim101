@@ -11,6 +11,8 @@ import StartPage from "./worldcupPages/startpage";
 import VsPage from "./worldcupPages/vspage";
 import WorldCup from "./worldcupPages/vs16page";
 import AllRank from './pages/AllRank';
+import Messages from './pages/Messages';
+import Chat from './pages/Chat';
 import { LoadRandomPhotos } from "./worldcupPages/random";
 
 
@@ -41,6 +43,8 @@ function App() {
           <Route path='/worldcup/vs8' element={<VsPage/>}></Route>
           <Route path='/worldcup/vs16' element={<WorldCup downloadURLs={downloadURLs}/>}></Route>     
           <Route path="/allRank" element={<AllRank />}></Route>  
+          <Route path="/messages" element={<Messages />}></Route>  
+          <Route path="/Chat" element={<Chat />}></Route> 
         </Routes>
       </BrowserRouter>      
     </div>
