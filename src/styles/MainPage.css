@@ -3,7 +3,7 @@
 * {
     text-decoration: none;
     box-sizing: border-box;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Varela Rbaound', sans-serif;
     padding: 0;
     margin: 0;
   }
@@ -133,6 +133,10 @@
     height: 80px;
     line-height: 110px;
   }
+  .Lhead img{
+    width: 50px;
+    height: 50px;
+  }
   .Lhead h1{
     line-height: 40px;
     color: white;
@@ -215,16 +219,17 @@
     font-size: 25px;
   }
   #men{
-
+    background-image: url('/public/img/men.jpg');
     background-color: white;
     background-size: cover;
   }
   #girl{
-
+    background-image: url('/public/img/girl.png');
     background-color: white;
     background-size: cover;
   }
   #com{
+    background-image: url('/public/img/son.jpg');
     background-color: white;
     background-size: cover;
   }
@@ -235,8 +240,10 @@
     grid-template-columns: repeat(auto-fit, minmax(600px,1fr));
     grid-gap:1rem;
     grid-auto-rows: 300px;
+    
   }
   .Bcard {
+    background-image: url('/public/img/son.jpg');
     background-color: white;
     color:white;
     background-color: #fff;
@@ -244,10 +251,12 @@
     margin: 30px;
     border-radius: 40px;
     text-align: center;
-
-    font-size: 25px;
+    list-style:none;
+    font-size: 20px;
   }
-
+.Bcard li {
+  list-style:none;
+}
   .footer{   
     list-style: none;
     height:100px;  /* 높이 */
@@ -267,6 +276,7 @@
     color:gray;
     list-style: none;
     border:none;  /* 마지막 항목에는 오른쪽 테두리 없음 */  
+    
   }
   #bottomMenu ul {
     color:gray;

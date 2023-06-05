@@ -10,46 +10,12 @@ import { AiOutlineLink } from "react-icons/ai";
 import { RiKakaoTalkLine } from "react-icons/ri";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { flexbox } from '@mui/system';
-import { storage } from "../config/firebase-config";
+import { storage, db } from "../config/firebase-config";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 
 
 
-const items = [
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-    {
-        name : "이름",
-        src : ""
-    },
-];
 
 const style = {
     position: 'absolute',
@@ -63,6 +29,8 @@ const style = {
     borderRadius : 5,
 };
 
+
+
 function VsPage(){
     const [hodus, setHodu] = useState([]);
     const [displays, setDisplays] = useState([]);
@@ -72,6 +40,48 @@ function VsPage(){
     const [winnerdisplay, setWinnerDisplay] = useState(false);
     const currentUrl = window.location.href;
 
+    const items = [
+        {
+            name : "이름1",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름2",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름3",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름4",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름5",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름6",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름7",
+            src : "",
+            uid : ""
+        },
+        {
+            name : "이름8",
+            src : "",
+            uid : ""
+        },
+    ];
 
     
     useEffect(() => {
@@ -83,7 +93,7 @@ function VsPage(){
 
         // 랜덤한 폴더 선택
         const randomFolderIndex = Math.floor(Math.random() * folders.prefixes.length);
-        const randomFolder = folders.prefixes[randomFolderIndex];
+        const randomFolder = folders.prefixes[randomFolderIndex];        
 
         // 선택한 폴더의 모든 파일 목록 가져오기
         const files = await listAll(randomFolder);
@@ -94,43 +104,45 @@ function VsPage(){
         // 랜덤한 인덱스의 파일 다운로드 URL 가져오기
         const randomFile = files.items[randomFileIndex];
         const downloadURL = await getDownloadURL(randomFile);
+        const uid = randomFolder.name;
 
         items[index].src = downloadURL;
+        items[index].uid = uid;
+
         };
-
+        
    
-    items.forEach((item, index) => {
-        getRandomPhotoAndAssignToItem(index);
-    });
+        items.forEach((item, index) => {
+            getRandomPhotoAndAssignToItem(index);
+        });
 
-        items.sort(() => Math.random() - 0.5);
-        setHodu(items);
-        setDisplays([items[0], items[1]]);
+            items.sort(() => Math.random() - 0.5);
+            setHodu(items);
+            setDisplays([items[0], items[1]]);
 
-    }, []);
+        }, []);
 
-    const clickEvent = hodu => () => {
-        if (hodus.length <= 2) {
-            if (winnerhodu.length === 0) {
-              setDisplays([hodu]);
-              setWinnerDisplay(true);
-            } else {
-              let updatedHodu = [...winnerhodu, hodu];
-              setHodu(updatedHodu);
-              setDisplays([updatedHodu[0], updatedHodu[1]]);
-              setWinners([]);
-              setRound(1);
-              setTotal(totalRound / 2);
-            }
-        } 
-        else if (hodus.length > 2) {
-            setWinners([...winnerhodu, hodu]);
-            setDisplays([hodus[2], hodus[3]]);
-            setHodu(hodus.slice(2));
-            setRound(roundCount + 1);
-        }
-    }
-
+        const clickEvent = hodu => () => {
+            if (hodus.length <= 2) {
+              if (winnerhodu.length === 0) {
+                setDisplays([hodu]);
+                setWinnerDisplay(true);
+              } else {
+                let updatedHodu = [...winnerhodu, hodu];
+                setHodu(updatedHodu);
+                setDisplays([updatedHodu[0], updatedHodu[1]]);
+                setWinners([]);
+                setRound(1);
+                setTotal(totalRound / 2);
+              }
+            } else if (hodus.length > 2) {
+              setWinners([...winnerhodu, hodu]);
+              setDisplays([hodus[2], hodus[3]]);
+              setHodu(hodus.slice(2));
+              setRound(roundCount + 1);
+                        
+            } console.log(winnerhodu);
+          };
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -154,6 +166,7 @@ function VsPage(){
                         </div>
                         <div className={styles.title}>
                             <label>{displays[0].name}</label>
+                            <label>{displays[0].uid}</label>
                         </div>
                         <div className={styles.action}>
                             <Link to="/" style={{ textDecoration: 'none' }}>

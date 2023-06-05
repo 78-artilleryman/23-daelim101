@@ -42,7 +42,7 @@ const MainPage = () => {
 
   const getUserName = async (uid) => {
     try {
-      const userRef = doc(db, 'user-F', uid);
+      const userRef = doc(db, 'user-M', uid);
       const userDoc = await getDoc(userRef);
 
       if (userDoc.exists()) {
@@ -76,19 +76,16 @@ const MainPage = () => {
           <li><img className="weblogo" src="img/daelimlogo.png" /></li>
         </div>
         <div className="Rhead">
-          <div>
-            <Link to="worldcup"><p>월드컵 가기</p></Link>
+          <div>            
             {emailVerified || <Link to="login"><p>로그인</p></Link>}
             {emailVerified || <Link to="signup"><p>회원가입</p></Link>}
             {emailVerified && <Link to="mypage"><p>{name}님 안녕하세요 !</p></Link>}
             {emailVerified && <button onClick={Logout}>Logout</button>}
           </div>
-          <img src="img/masages.png" />
-          <img src="img/my.png" />
         </div>
       </div>
       <div className="Menu">
-        <li><a href="#" target="_self"><img src="img/world.png" />World Cup</a></li>
+        <Link to="worldcup"><li><a href="#" target="_self"><img src="img/world.png" />World Cup</a></li></Link>
         <li><a href="#" target="_self"><img src="img/date.png" />Blind Date</a></li>
       </div>
       <div id="wrapper">
@@ -116,32 +113,22 @@ const MainPage = () => {
           </header>
         </div>
       </div>
-      <div id="Bwrapper">
+      {/* <div id="Bwrapper">
         <div className="Bcard">
           <div className="Notice">
             <header>
               <h3>Notice</h3>
             </header>
-            <ul className="Lnotice">
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-            </ul>
-          </div>
+            </div>
         </div>
         <div className="Bcard">
           <div className="Rank">
             <header>
               <h3>Rank</h3>
             </header>
-            <ul className="Rankli">
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-            </ul>
-          </div>
+           </div>
         </div>
-      </div>
+      </div> */}
       <div className="footer">
         <div id="bottomMenu">
           <ul>
@@ -153,9 +140,9 @@ const MainPage = () => {
 
         </div>
       </div>
-      <div id="company">
+      {/* <div id="company">
         <p>경기도 수원시 권선구  (대표전화) 123-456-7890</p>
-      </div>
+      </div> */}
     </div>
 
   )
