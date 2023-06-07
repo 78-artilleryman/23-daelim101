@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 // 파이어베이서 파일에서 import 해온 db
-import {db, auth, storage} from '../config/firebase-config'
+import {db, auth, storage } from '../config/firebase-config'
 // db에 데이터에 접근을 도와줄 친구들
 import { setDoc, doc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "../styles/InsertUserData.css";
 // 페이지를 이동할때 쓰는 메서드
-import { useNavigate } from "react-router-dom"
+import { useNavigate,Link } from "react-router-dom"
+
+//수진
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const InsertUserData = () => {
   // input으로 받을 state
@@ -211,7 +214,44 @@ const InsertUserData = () => {
   // 회원가입 및 fireStroe 데이터 생성
   const insertData = async (e) =>{
     e.preventDefault();
-    try {
+
+    // 수진
+    try{
+
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `/user/${newName}/${newStudentNo}`);
+
+      await uploadBytesResumable(storageRef, file).then(() => {
+      getDownloadURL(storageRef).then(async (downloadURL) => {
+        try {
+          //Update profile
+          await updateProfile(auth.currentUser, {
+            newName,
+            newMajor,
+            newStudentNo,
+            photoURL: downloadURL,
+          });
+           //create user on firestore
+           await setDoc(doc(db, "users",  auth.currentUser.uid), {
+             uid: auth.currentUser.uid,
+             newName,
+             newMajor,
+            newStudentNo,
+            photoURL: downloadURL,
+           });
+
+           //create empty user chats on firestore
+            await setDoc(doc(db, "userChats",  auth.currentUser.uid), {});
+            navigate("/");
+
+          }catch (err) {
+            console.log(err);
+            setHasError(true);
+          }
+      });
+    });
+
+      try {
         // Firebase Authentication에서 생성된 사용자 UID를 가져와 Firestore에 저장
         await setDoc(doc(db, userGender, auth.currentUser.uid), {
             name: newName,
@@ -220,22 +260,32 @@ const InsertUserData = () => {
             major: newMajor,
             phone: newPhone,
             studentNo: newStudentNo            
-        });                
+        }); 
+               
         handleUpload(auth.currentUser.uid);
         console.log("파일 업로드 성공");
         alert("회원가입을 축하드립니다! 메인페이지로 이동합니다.");
         navigate('/');
     } catch (error) {
         console.log(error.message);
+        setHasError(true);
     }
+
+    }catch{
+
+    }
+   
+   
+    
 }
+
 
 return (
     // 유저 정보 입력 페이지 html
     <form onSubmit={insertData}>
         <div id="header">
-          <img src="img/daelimlogo.png" id="logo" alt="Daelim101 Logo"/>
-        </div>
+          <img src="img/logo.png" id="logo" alt="Daelim101 Logo"/>
+        </div>``
         <div className="wrapper">
               <div id="content">                                       
                    <div>
@@ -340,4 +390,3 @@ return (
 }
 
 export default InsertUserData;
-

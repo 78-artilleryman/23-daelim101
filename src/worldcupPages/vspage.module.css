@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+   
 }
 .comment {
     padding-top: 50px;
@@ -19,9 +20,11 @@
     align-items: center;
     transition: 0.5s;
     cursor: pointer;
+    border: 20px solid white;
+    box-shadow: 5px 20px 20px 5px rgba(0, 0, 0, 0.5); 
 }
 .kinghodu:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .vsImg {
     flex: 1;
@@ -33,15 +36,25 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-size: 60px;
+    margin: 30px;
+}
+.title2 {
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    font-size: 100px;
+    margin: 30px;
+    color: #46a8f3
 }
 .basic {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    
 }
 .card {
-    background-color: #82AAE3;
     border-radius: 30px;
     width: 90%;
     max-height: 90%;
@@ -49,10 +62,19 @@
     top: 50%;
     left: 50%;  
     transform: translate(-50%,-50%);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  
   }
 .page {
     flex-wrap: wrap;
     height: 100vh;
     background-color: #EAFDFC;
+    background-image: url(/public/img/worldcupImg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
   }
+.name{
+    margin-top: 70px;
+    font-size: 30px;
+}
+
+

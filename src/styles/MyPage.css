@@ -1,0 +1,141 @@
+.Sex {
+    /* background-image: url('/public/img/symbol.png'); */
+    width: 100%;
+    height: 100%;
+} 
+.Sex .SexMans img{
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+}
+
+.about{
+
+}
+  .card {
+    width: 700px;
+    height: 330px;
+    background-color: white;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid black;
+    margin: 0 auto;
+    margin-top: 10%;
+    display: flex;
+    position: relative;
+  }
+
+  .profile {
+    padding: 10px;
+    width: 40%;
+    height: 100%;
+  }
+
+  .profile img {
+    border: 1px solid #ffff;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .info {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    margin-top: 30px;
+    font-size: 15px;
+    font-family: 'Oswald', sans-serif;
+    color: #eeee;
+  }
+  .name p{
+    font-weight: 900;
+    font-size: 28px;
+  }
+  .contacts {
+    z-index: 99;
+    font-size: 15px;
+    margin-bottom: 5%;
+    font-family: 'Roboto Mono', monospace;
+    font-style: italic;
+  }
+
+  .Myheader{
+
+    width: 100%;
+    height: 80px;
+    z-index: 99;
+    border-bottom: 1px solid #000;
+    background-color: white;
+  }
+
+  .daelim{
+    position: absolute;
+    z-index: 0;
+    margin: -8% 0 0 53%;
+  }
+  
+  .daelim img{
+    width: 650px;
+    height: 450px;
+    transform: scale(1); /* 이미지 사이즈 고정 */
+  }
+
+  .full{
+    width: 200px;
+    height: 60px;
+    bottom: 50px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #008CBA;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+  }
+
+
+  /* 하단 코멘트 */
+  .comment {
+    font-size: 16px;
+    font-style: italic;
+  }
+  p{
+    z-index: 100;
+    text-align: left; margin-top: auto; font-size: 20px; font-weight: bold; color:black;
+    
+  }
+  .Myfooter{
+        list-style: none;
+        height:100px;  /* 높이 */
+        margin-top: 70px;
+        width: 100%;
+        border-top:3px solid #eee;
+        background-color: white;
+        color:gray;
+        position: fixed;
+        bottom:0;
+      
+  }
+
+
+  .MyLhead{
+    float: left;
+    height: 80px;
+    margin-left: 10px;
+    line-height: 75px;
+    font-size: 20px;
+  }
+  .goMain{
+    text-align: center;
+    margin-top:15px;
+    font-size: 20px;
+  }

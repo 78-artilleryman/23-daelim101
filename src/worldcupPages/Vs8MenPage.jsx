@@ -31,7 +31,7 @@ const style = {
 
 
 
-function VsPage(){
+function Vs8MenPage(){
     const [hodus, setHodu] = useState([]);
     const [displays, setDisplays] = useState([]);
     const [winnerhodu, setWinners] = useState([]);
@@ -86,7 +86,7 @@ function VsPage(){
     
     useEffect(() => {
         const getRandomPhotoAndAssignToItem = async (index) => {
-            const folderRef = ref(storage, "user-W/"); // 파이어베이스 Storage 폴더 경로 설정
+            const folderRef = ref(storage, "user-M/"); // 파이어베이스 Storage 폴더 경로 설정
 
         // 해당 폴더의 모든 폴더 목록 가져오기
         const folders = await listAll(folderRef);
@@ -199,7 +199,7 @@ function VsPage(){
                 ) : (
                 <div>
                     <h1 className={styles.title}>
-                        이상형 월드컵&nbsp;&nbsp;(여성)&nbsp;&nbsp;{roundCount}/{totalRound}
+                        이상형 월드컵&nbsp;&nbsp;(남성)&nbsp;&nbsp;{roundCount}/{totalRound}
                     </h1>
                     <div className={styles.basic}>
                     {
@@ -221,4 +221,4 @@ function VsPage(){
     );
 }
 
-export default VsPage;
+export default Vs8MenPage;

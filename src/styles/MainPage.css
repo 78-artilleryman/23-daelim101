@@ -18,7 +18,6 @@
     position: absolute;
     width: 100%;
     height: 120vh;
-
   }
   #lgPage h1{
     color: white;
@@ -218,11 +217,11 @@
     line-height: 500px;
     font-size: 25px;
   }
-  #men{
-    background-image: url('/public/img/men.jpg');
+  /* #men{
+    background-image: url('/public/img/man.png');
     background-color: white;
     background-size: cover;
-  }
+  }*/
   #girl{
     background-image: url('/public/img/girl.png');
     background-color: white;

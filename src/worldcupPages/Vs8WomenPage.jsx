@@ -31,7 +31,7 @@ const style = {
 
 
 
-function Vs16Page(){
+function Vs8WomenPage(){
     const [hodus, setHodu] = useState([]);
     const [displays, setDisplays] = useState([]);
     const [winnerhodu, setWinners] = useState([]);
@@ -86,7 +86,7 @@ function Vs16Page(){
     
     useEffect(() => {
         const getRandomPhotoAndAssignToItem = async (index) => {
-            const folderRef = ref(storage, "user-M/"); // 파이어베이스 Storage 폴더 경로 설정
+            const folderRef = ref(storage, "user-W/"); // 파이어베이스 Storage 폴더 경로 설정
 
         // 해당 폴더의 모든 폴더 목록 가져오기
         const folders = await listAll(folderRef);
@@ -221,4 +221,4 @@ function Vs16Page(){
     );
 }
 
-export default Vs16Page;
+export default Vs8WomenPage;

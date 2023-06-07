@@ -52,14 +52,14 @@ function StartPage(){
                 <div className={styles.action}>
                 {vsChange === 8 ? 
                     (
-                    <Link to="vs8">
+                    <Link to="vsWomen">
                         <button className={styles.button}>시작하기</button>
                     </Link>
                     )
                     :
                     vsChange === 16 ?
                     (
-                        <Link to="vs16">
+                        <Link to="vsMen">
                         <button className={styles.button}>시작하기</button>
                         </Link>
                     )
