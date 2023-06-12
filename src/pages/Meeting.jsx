@@ -33,7 +33,7 @@ function Meeting() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "user-M"));
+      const querySnapshot = await getDocs(collection(db, "user-F"));
       const names = [];
       const majors = [];
 
@@ -52,7 +52,7 @@ function Meeting() {
 
   useEffect(() => {
     const fetchPhoto = async () => {
-      const folderRef = ref(storage, "user-M/");
+      const folderRef = ref(storage, "user-F/");
       const folders = await listAll(folderRef);
       const tempDownloadURLs = [];
 
