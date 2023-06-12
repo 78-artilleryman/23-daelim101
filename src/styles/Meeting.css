@@ -156,6 +156,7 @@
    }
    .testimonials .item p {
       color: black;
+      text-align: center;
    }
    .testimonials .item h1 {
       font-size: 25px;
@@ -247,6 +248,7 @@
     /* margin: 20px; */
    }
    
+
    .w-btn {
     position: relative;
     border: none;

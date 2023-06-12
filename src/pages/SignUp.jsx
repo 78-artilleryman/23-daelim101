@@ -48,7 +48,6 @@ const SignUp = () => {
     setEmail(currentEmail);
     const emailRegExp =
     /^[a-zA-Z0-9]+@email.daelim.ac.kr$/;
- 
     if (!emailRegExp.test(currentEmail)) {
       setEmailMessage(" 이메일의 형식이 올바르지 않습니다!");
       setIsEmail(false);

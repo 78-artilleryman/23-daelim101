@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { AiOutlineLink } from "react-icons/ai";
 import { RiKakaoTalkLine } from "react-icons/ri";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { flexbox } from '@mui/system';
 import { storage, db } from "../config/firebase-config";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
@@ -26,12 +26,12 @@ const style = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
-    borderRadius : 5,
+    borderRadius: 5,
 };
 
 
 
-function Vs8WomenPage(){
+function Vs8WomenPage() {
     const [hodus, setHodu] = useState([]);
     const [displays, setDisplays] = useState([]);
     const [winnerhodu, setWinners] = useState([]);
@@ -42,127 +42,128 @@ function Vs8WomenPage(){
 
     const items = [
         {
-            name : "이름1",
-            src : "",
-            uid : ""
+            name: "이름1",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름2",
-            src : "",
-            uid : ""
+            name: "이름2",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름3",
-            src : "",
-            uid : ""
+            name: "이름3",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름4",
-            src : "",
-            uid : ""
+            name: "이름4",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름5",
-            src : "",
-            uid : ""
+            name: "이름5",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름6",
-            src : "",
-            uid : ""
+            name: "이름6",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름7",
-            src : "",
-            uid : ""
+            name: "이름7",
+            src: "",
+            uid: ""
         },
         {
-            name : "이름8",
-            src : "",
-            uid : ""
+            name: "이름8",
+            src: "",
+            uid: ""
         },
     ];
 
-    
+
     useEffect(() => {
         const getRandomPhotoAndAssignToItem = async (index) => {
             const folderRef = ref(storage, "user-W/"); // 파이어베이스 Storage 폴더 경로 설정
 
-        // 해당 폴더의 모든 폴더 목록 가져오기
-        const folders = await listAll(folderRef);
+            // 해당 폴더의 모든 폴더 목록 가져오기
+            const folders = await listAll(folderRef);
 
-        // 랜덤한 폴더 선택
-        const randomFolderIndex = Math.floor(Math.random() * folders.prefixes.length);
-        const randomFolder = folders.prefixes[randomFolderIndex];        
+            // 랜덤한 폴더 선택
+            const randomFolderIndex = Math.floor(Math.random() * folders.prefixes.length);
+            const randomFolder = folders.prefixes[randomFolderIndex];
 
-        // 선택한 폴더의 모든 파일 목록 가져오기
-        const files = await listAll(randomFolder);
+            // 선택한 폴더의 모든 파일 목록 가져오기
+            const files = await listAll(randomFolder);
 
-        // 랜덤한 인덱스 선택
-        const randomFileIndex = Math.floor(Math.random() * files.items.length);
+            // 랜덤한 인덱스 선택
+            const randomFileIndex = Math.floor(Math.random() * files.items.length);
 
-        // 랜덤한 인덱스의 파일 다운로드 URL 가져오기
-        const randomFile = files.items[randomFileIndex];
-        const downloadURL = await getDownloadURL(randomFile);
-        const uid = randomFolder.name;
+            // 랜덤한 인덱스의 파일 다운로드 URL 가져오기
+            const randomFile = files.items[randomFileIndex];
+            const downloadURL = await getDownloadURL(randomFile);
+            const uid = randomFolder.name;
 
-        items[index].src = downloadURL;
-        items[index].uid = uid;
+            items[index].src = downloadURL;
+            items[index].uid = uid;
 
         };
-        
-   
+
+
         items.forEach((item, index) => {
             getRandomPhotoAndAssignToItem(index);
         });
 
-            items.sort(() => Math.random() - 0.5);
-            setHodu(items);
-            setDisplays([items[0], items[1]]);
+        items.sort(() => Math.random() - 0.5);
+        setHodu(items);
+        setDisplays([items[0], items[1]]);
 
-        }, []);
+    }, []);
 
-        const clickEvent = hodu => () => {
-            if (hodus.length <= 2) {
-              if (winnerhodu.length === 0) {
+    const clickEvent = hodu => () => {
+        if (hodus.length <= 2) {
+            if (winnerhodu.length === 0) {
                 setDisplays([hodu]);
                 setWinnerDisplay(true);
-              } else {
+            } else {
                 let updatedHodu = [...winnerhodu, hodu];
                 setHodu(updatedHodu);
                 setDisplays([updatedHodu[0], updatedHodu[1]]);
                 setWinners([]);
                 setRound(1);
                 setTotal(totalRound / 2);
-              }
-            } else if (hodus.length > 2) {
-              setWinners([...winnerhodu, hodu]);
-              setDisplays([hodus[2], hodus[3]]);
-              setHodu(hodus.slice(2));
-              setRound(roundCount + 1);
-                        
-            } console.log(winnerhodu);
-          };
+            }
+        } else if (hodus.length > 2) {
+            setWinners([...winnerhodu, hodu]);
+            setDisplays([hodus[2], hodus[3]]);
+            setHodu(hodus.slice(2));
+            setRound(roundCount + 1);
+
+        } console.log(winnerhodu);
+    };
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleKakaoButton = () => {
         window.Kakao.Link.sendScrap({
-            requestUrl: currentUrl, 
-    })};
+            requestUrl: currentUrl,
+        })
+    };
 
-    return(
+    return (
         <div className={styles.page}>
             <div className={styles.card}>
                 {winnerdisplay ? (
                     <div>
                         <h1 className={styles.title}>
-                            최종<br/>
-                            
+                            최종<br />
+
                         </h1>
                         <div className={styles.title}>
-                            <img className={styles.winnerhodu} src={displays[0].src}/>
+                            <img className={styles.winnerhodu} src={displays[0].src} />
                         </div>
                         <div className={styles.title}>
                             <label>{displays[0].name}</label>
@@ -185,37 +186,37 @@ function Vs8WomenPage(){
                                     </Typography>
                                     <CopyToClipboard text={currentUrl}>
                                         <Button id="modal-modal-description" sx={{ mt: 2 }}>
-                                            <AiOutlineLink/>
+                                            <AiOutlineLink />
                                             &nbsp;링크 복사하기
                                         </Button>
                                     </CopyToClipboard>
-                                    <br/>
-                                    
+                                    <br />
+
                                 </Box>
                             </Modal>
-                            
+
                         </div>
                     </div>
                 ) : (
-                <div>
-                    <h1 className={styles.title}>
-                        이상형 월드컵&nbsp;&nbsp;(여성)&nbsp;&nbsp;{roundCount}/{totalRound}
-                    </h1>
-                    <div className={styles.basic}>
-                    {
-                        displays.map(d => {
-                            return (
-                                <div className={styles.vsImg} key={d.name} onClick={clickEvent(d)}>
-                                    <img className={styles.kinghodu} src={d.src} />
-                                    <div>{d.name}</div>
-                                </div>
-                            );
-                        })
-                    }
+                    <div>
+                        <h1 className={styles.title}>
+                            이상형 월드컵&nbsp;&nbsp;(여성)&nbsp;&nbsp;{roundCount}/{totalRound}
+                        </h1>
+                        <div className={styles.basic}>
+                            {
+                                displays.map(d => {
+                                    return (
+                                        <div className={styles.vsImg} key={d.name} onClick={clickEvent(d)}>
+                                            <img className={styles.kinghodu} src={d.src} />
+                                            <div>{d.name}</div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
                     </div>
-                </div>
                 )
-            }
+                }
             </div>
         </div>
     );

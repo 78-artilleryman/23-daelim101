@@ -8,14 +8,10 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { AiOutlineLink } from "react-icons/ai";
 import { RiKakaoTalkLine } from "react-icons/ri";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { flexbox } from '@mui/system';
 import { storage, db } from "../config/firebase-config";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
-
-
-
-
 
 const style = {
     position: 'absolute',
@@ -29,8 +25,6 @@ const style = {
     borderRadius : 5,
 };
 
-
-
 function Vs8MenPage(){
     const [hodus, setHodu] = useState([]);
     const [displays, setDisplays] = useState([]);
@@ -39,45 +33,46 @@ function Vs8MenPage(){
     const [totalRound, setTotal] = useState(4);
     const [winnerdisplay, setWinnerDisplay] = useState(false);
     const currentUrl = window.location.href;
+    const [visitedFolders, setVisitedFolders] = useState([]); // 폴더 기록을 위한 상태 변수 추가
 
     const items = [
         {
-            name : "이름1",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름2",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름3",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름4",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름5",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름6",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름7",
+            name : "",
             src : "",
             uid : ""
         },
         {
-            name : "이름8",
+            name : "",
             src : "",
             uid : ""
         },
@@ -91,9 +86,16 @@ function Vs8MenPage(){
         // 해당 폴더의 모든 폴더 목록 가져오기
         const folders = await listAll(folderRef);
 
-        // 랜덤한 폴더 선택
-        const randomFolderIndex = Math.floor(Math.random() * folders.prefixes.length);
-        const randomFolder = folders.prefixes[randomFolderIndex];        
+        // 랜덤한 폴더 선택        
+        let randomFolderIndex;
+        let randomFolder;               
+        
+        do {
+          randomFolderIndex = Math.floor(Math.random() * folders.prefixes.length);
+          randomFolder = folders.prefixes[randomFolderIndex];
+          setVisitedFolders(randomFolder = folders.prefixes[randomFolderIndex]);         
+
+        } while (visitedFolders.includes(randomFolder));       
 
         // 선택한 폴더의 모든 파일 목록 가져오기
         const files = await listAll(randomFolder);

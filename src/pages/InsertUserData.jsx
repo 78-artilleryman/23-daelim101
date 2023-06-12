@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 // 파이어베이서 파일에서 import 해온 db
-import {db, auth, storage } from '../config/firebase-config'
+import {db, auth, storage} from '../config/firebase-config'
 // db에 데이터에 접근을 도와줄 친구들
 import { setDoc, doc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "../styles/InsertUserData.css";
 // 페이지를 이동할때 쓰는 메서드
-import { useNavigate,Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 //수진
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -185,10 +185,8 @@ const InsertUserData = () => {
       alert("Please upload an image first!");
       }
       
-      const storageRef = ref(storage, `/user/${user}/${file.name}`);
-      
-      // progress can be paused and resumed. It also exposes progress updates.
-      // Receives the storage reference and the file to upload.
+      const storageRef = ref(storage, `/${userGender}/${user}/${file.name}`);
+            
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
@@ -196,13 +194,12 @@ const InsertUserData = () => {
         (snapshot) => {
         const percent = Math.round(
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        
-        // update progress
+                
         setPercent(percent);
         },
         (err) => console.log(err),
         () => {
-        // download url
+        
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
         console.log(url);
         });
@@ -214,44 +211,9 @@ const InsertUserData = () => {
   // 회원가입 및 fireStroe 데이터 생성
   const insertData = async (e) =>{
     e.preventDefault();
-
-    // 수진
-    try{
-
-      const date = new Date().getTime();
-      const storageRef = ref(storage, `/user/${newName}/${newStudentNo}`);
-
-      await uploadBytesResumable(storageRef, file).then(() => {
-      getDownloadURL(storageRef).then(async (downloadURL) => {
-        try {
-          //Update profile
-          await updateProfile(auth.currentUser, {
-            newName,
-            newMajor,
-            newStudentNo,
-            photoURL: downloadURL,
-          });
-           //create user on firestore
-           await setDoc(doc(db, "users",  auth.currentUser.uid), {
-             uid: auth.currentUser.uid,
-             newName,
-             newMajor,
-            newStudentNo,
-            photoURL: downloadURL,
-           });
-
-           //create empty user chats on firestore
-            await setDoc(doc(db, "userChats",  auth.currentUser.uid), {});
-            navigate("/");
-
-          }catch (err) {
-            console.log(err);
-            setHasError(true);
-          }
-      });
-    });
-
-      try {
+    try {
+        const date = new Date().getTime();
+        const storageRef = ref(storage, `/user/${newName}/${newStudentNo}`);
         // Firebase Authentication에서 생성된 사용자 UID를 가져와 Firestore에 저장
         await setDoc(doc(db, userGender, auth.currentUser.uid), {
             name: newName,
@@ -260,32 +222,22 @@ const InsertUserData = () => {
             major: newMajor,
             phone: newPhone,
             studentNo: newStudentNo            
-        }); 
-               
-        handleUpload(auth.currentUser.uid);
+        });                
+        handleUpload(newName);
         console.log("파일 업로드 성공");
         alert("회원가입을 축하드립니다! 메인페이지로 이동합니다.");
         navigate('/');
     } catch (error) {
         console.log(error.message);
-        setHasError(true);
     }
-
-    }catch{
-
-    }
-   
-   
-    
 }
-
 
 return (
     // 유저 정보 입력 페이지 html
     <form onSubmit={insertData}>
         <div id="header">
-          <img src="img/logo.png" id="logo" alt="Daelim101 Logo"/>
-        </div>``
+          <img src="img/daelimlogo.png" id="logo" alt="Daelim101 Logo"/>
+        </div>
         <div className="wrapper">
               <div id="content">                                       
                    <div>
@@ -332,37 +284,37 @@ return (
                       <span className="box major_code">
                           <select id="major" className="sel" onChange={onChangeMajor}>         
                               <option value="">전공 선택</option>                     
-                              <option value="ai">AI시스템과</option>
-                              <option value="robot">로봇자동화공학과</option>
-                              <option value="architectural">건축과</option>
-                              <option value="mechanic">기계공학과</option>
-                              <option value="car">미래자동차공학부</option>
-                              <option value="broadcast">방송음향영상학부</option>
-                              <option value="industry">산업경영과</option>
-                              <option value="fireSafety">소방안전설비과</option>
-                              <option value="electronicCommunication">전자·통신과</option>
-                              <option value="smartFactory">스마트팩토리학부</option>
-                              <option value="design">실내디자인학부</option>
-                              <option value="medical">의공융합과</option>
-                              <option value="electronic">전기공학과</option>
-                              <option value="computer">컴퓨터정보학부</option>
-                              <option value="construction">건설환경공학과</option>
-                              <option value="semiconductor">반도체학과</option>
-                              <option value="business">경영학과</option>
-                              <option value="media">도서관미디어정보과</option>
-                              <option value="office">사무행정학과</option>
-                              <option value="social">사회복지학과</option>
-                              <option value="childEducation">유아교육과</option>
-                              <option value="air">항공서비스과</option>
-                              <option value="hotelLeisure">호텔레저학과</option>
-                              <option value="childCare">아동보육과</option>
-                              <option value="sport">스포츠학부</option>
-                              <option value="hotelCook">호텔조리·제과학부</option>
-                              <option value="healthSafety">보건안전학과</option>
-                              <option value="biomedical">보건의료공학과</option>
-                              <option value="medicalAdministration">보건의료행정과</option>
-                              <option value="speech">언어치료학과</option>
-                              <option value="navy">해군기술부사관과</option>
+                              <option value="AI시스템과">AI시스템과</option>
+                              <option value="로봇자동화공학과">로봇자동화공학과</option>
+                              <option value="건축과">건축과</option>
+                              <option value="기계공학과">기계공학과</option>
+                              <option value="미래자동차공학부">미래자동차공학부</option>
+                              <option value="방송음향영상학부">방송음향영상학부</option>
+                              <option value="산업경영과">산업경영과</option>
+                              <option value="소방안전설비과">소방안전설비과</option>
+                              <option value="전자·통신과">전자·통신과</option>
+                              <option value="스마트팩토리학부">스마트팩토리학부</option>
+                              <option value="실내디자인학부">실내디자인학부</option>
+                              <option value="의공융합과">의공융합과</option>
+                              <option value="전기공학과">전기공학과</option>
+                              <option value="컴퓨터정보학부">컴퓨터정보학부</option>
+                              <option value="건설환경공학과">건설환경공학과</option>
+                              <option value="반도체학과">반도체학과</option>
+                              <option value="경영학과">경영학과</option>
+                              <option value="도서관미디어정보과">도서관미디어정보과</option>
+                              <option value="사무행정학과">사무행정학과</option>
+                              <option value="사회복지학과">사회복지학과</option>
+                              <option value="유아교육과">유아교육과</option>
+                              <option value="항공서비스과">항공서비스과</option>
+                              <option value="호텔레저학과">호텔레저학과</option>
+                              <option value="아동보육과">아동보육과</option>
+                              <option value="스포츠학부">스포츠학부</option>
+                              <option value="호텔조리·제과학부">호텔조리·제과학부</option>
+                              <option value="보건안전학과">보건안전학과</option>
+                              <option value="보건의료공학과">보건의료공학과</option>
+                              <option value="보건의료행정과">보건의료행정과</option>
+                              <option value="언어치료학과">언어치료학과</option>
+                              <option value="해군기술부사관과">해군기술부사관과</option>
                           </select>
                       </span>                      
                       <span className="message">{majorMessage}</span>
@@ -390,3 +342,4 @@ return (
 }
 
 export default InsertUserData;
+

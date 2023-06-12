@@ -139,7 +139,7 @@ const MyPage = () => {
   // 프로필 이미지 파일 업로드
   
   if (user) {
-    const imagesRef = ref(storage, `user-M/${auth.currentUser.uid}/`);
+    const imagesRef = ref(storage, `user-M/${name}/`);
     listAll(imagesRef)
       .then((res) => {
         // 가져온 이미지 목록을 업로드 시간이 최근인 순서대로 정렬

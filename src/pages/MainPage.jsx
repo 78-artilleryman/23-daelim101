@@ -50,8 +50,10 @@ const MainPage = () => {
         return userData.name;
 
       } else {
-        console.log('User document does not exist');
-        return '';
+        const userRef = doc(db, 'user-F', uid);
+        const userDoc = await getDoc(userRef);
+        const userData = userDoc.data();
+        return userData.name;        
       }
     } catch (error) {
       console.log(error);
@@ -86,7 +88,7 @@ const MainPage = () => {
       </div>
       <div className="Menu">
         <Link to="worldcup"><li><a href="#" target="_self"><img src="img/world.png" />World Cup</a></li></Link>
-        <li><a href="#" target="_self"><img src="img/date.png" />Blind Date</a></li>
+        <Link to="meeting"><li><a href="#" target="_self"><img src="img/date.png" />Blind Date</a></li></Link>
       </div>
       <div id="wrapper">
         <div className="Maincard" id="men">
