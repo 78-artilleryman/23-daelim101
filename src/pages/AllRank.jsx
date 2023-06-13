@@ -122,7 +122,7 @@ return (
         </div>
 
         <div className="own">
-          <img src="img/my.png" />
+          <img src="img/my.png"/>
           <div className="topscore">
             <p className="percent">80.27%</p>
           </div>

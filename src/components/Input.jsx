@@ -81,9 +81,9 @@ const Input = () => {
         value={text}
       />
       <div className="send">
-        <label htmlFor="file">
+        {/* <label htmlFor="file">
           <img src="img/img.png" alt=""/>
-        </label>
+        </label> */}
         <button onClick={handleSend}>보내기</button>
       </div>
     </div>

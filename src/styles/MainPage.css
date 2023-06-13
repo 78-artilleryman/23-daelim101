@@ -6,7 +6,18 @@
     font-family: 'Varela Rbaound', sans-serif;
     padding: 0;
     margin: 0;
+    
   }
+   .body2{
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
+   background-image: url(/public/img/son.jpg); 
+
+
+  
+  } 
   #Spage button{
 
     border-radius: 50px;
@@ -18,6 +29,7 @@
     position: absolute;
     width: 100%;
     height: 120vh;
+
   }
   #lgPage h1{
     color: white;
@@ -121,39 +133,36 @@
   .header{
     width: 100%;
     height: 80px;
-    border-bottom: 1px solid #000;
-    background-color: #82aae3;
+    /* border-bottom: 1px solid #000; */
+    background-color: white;
 
     
 
   }
-  .Lhead{
+  .header .Lhead{
+    line-height: 75px;
     float: left;
-    height: 80px;
-    line-height: 110px;
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 10px;
+    
   }
-  .Lhead img{
-    width: 50px;
-    height: 50px;
+  .Lhead button {
+    height: 500px;
   }
-  .Lhead h1{
-    line-height: 40px;
-    color: white;
-    text-shadow: -0.5px 0 gray, 0 0.5px gray , 0.5px 0 gray ,0 -0.5px gray;
-
-  }
-  .Lhead li {
-    float: left;
-  }
+  
   .Rhead{
     float: right;
     height: 80px;
-    line-height: 40px;
-    color:white
+    line-height: 75px;
+    color:white;
+    margin-right: 20px;
   }
   .Rhead p {    
     display: inline-block;
     margin-right: 10px;  
+    color: #000;
+    line-height: 75px;
   }
   .header img{
     width: 90px;
@@ -165,41 +174,18 @@
     height: 50px;
   }
 
-  .Menu{
-    font-size: 25px;
-    font-weight: bold;
-    color:white;
-    height: 65px;
-    text-align: center;
-    border-bottom: 1px solid black;
-  }
-  .Menu li a{
-    float: left;
-    line-height: 65px;
-
-    width: 220px;
-    border-right: 1px solid #000;
-  }
-
-  .Menu li img{
-    width: 30px;
-    height: 30px;
-  }
-  a { text-decoration: none; color: black; }
-  a:visited { text-decoration: none; }
-  a:hover { text-decoration: none; }
-  a:focus { text-decoration: none; }
-  a:hover, a:active { text-decoration: none; }
-
+  
 
 
   #wrapper{
-
-    margin: 40px;
+    width: 100%;
+    height: 100%;
+    margin-top: 5%;
+    /* margin-bottom: 5%; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
     grid-gap:1rem;
-    grid-auto-rows: 380px;
+    grid-auto-rows: 80%;
 
   }
   #wrapper h3{
@@ -217,18 +203,18 @@
     line-height: 500px;
     font-size: 25px;
   }
-  /* #men{
-    background-image: url('/public/img/man.png');
+  #men{
+    background-image: url('/public/img/men.jpg');
     background-color: white;
     background-size: cover;
-  }*/
+  }
   #girl{
     background-image: url('/public/img/girl.png');
     background-color: white;
     background-size: cover;
   }
   #com{
-    background-image: url('/public/img/son.jpg');
+    /* background-image: url('/public/img/son.jpg'); */
     background-color: white;
     background-size: cover;
   }
@@ -258,16 +244,19 @@
 }
   .footer{   
     list-style: none;
-    height:100px;  /* 높이 */
-    margin-top: 70px;
+    height: 10%;  /* 높이 */
+    /* margin-top: 70px; */
     border-top:3px solid #eee;
-    background-color: #eafdfc;
-    color:gray
+    background-color: white;
+    color:gray;
+    position:fixed;
+    /* bottom: 0; */
+    width: 100%;
   }
   #bottomMenu{
     color:white;
     list-style: none;
-    width:100%;
+    /* width:100%; */
     height:20px;
     position:relative;  
   }

@@ -22,7 +22,7 @@ const Search = () => {
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
-      where("newName", "==", username)
+      where("name", "==", username)
     );
 
     try {
@@ -56,7 +56,7 @@ const Search = () => {
         await updateDoc(doc(db, "userChats", currentUser.uid), {
           [combinedId + ".userInfo"]: {
             uid: user.uid,
-            newName: user.newName,
+            name: user.name,
             photoURL: user.photoURL,
           },
           [combinedId + ".date"]: serverTimestamp(),
@@ -65,7 +65,7 @@ const Search = () => {
         await updateDoc(doc(db, "userChats", user.uid), {
           [combinedId + ".userInfo"]: {
             uid: currentUser.uid,
-            newName: currentUser.newName,
+            name: currentUser.name,
             photoURL: currentUser.photoURL,
           },
           [combinedId + ".date"]: serverTimestamp(),
@@ -81,7 +81,7 @@ const Search = () => {
       <div className="searchForm">
         <input
           type="text"
-          placeholder="검색"
+          placeholder="Search"
           onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
@@ -92,7 +92,7 @@ const Search = () => {
         <div className="userChat" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />
           <div className="userChatInfo">
-            <span>{user.newName}</span>
+            <span>{user.name }</span>
           </div>
         </div>
       )}

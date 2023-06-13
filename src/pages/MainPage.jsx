@@ -5,6 +5,7 @@ import { getDoc, doc } from 'firebase/firestore'
 import '../styles/MainPage.css';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 
+
 const MainPage = () => {
   const [email, setEmail] = useState("");
   const [emailVerified, setEmailVerified] = useState(false);
@@ -42,7 +43,7 @@ const MainPage = () => {
 
   const getUserName = async (uid) => {
     try {
-      const userRef = doc(db, 'user-M', uid);
+      const userRef = doc(db, 'user-F', uid);
       const userDoc = await getDoc(userRef);
 
       if (userDoc.exists()) {
@@ -50,10 +51,8 @@ const MainPage = () => {
         return userData.name;
 
       } else {
-        const userRef = doc(db, 'user-F', uid);
-        const userDoc = await getDoc(userRef);
-        const userData = userDoc.data();
-        return userData.name;        
+        console.log('User document does not exist');
+        return '';
       }
     } catch (error) {
       console.log(error);
@@ -72,13 +71,15 @@ const MainPage = () => {
   console.log(email);
 
   return (
+    <div className='body2'> 
+    
     <div>
       <div className="header">
         <div className="Lhead">
-          <li><img className="weblogo" src="img/daelimlogo.png" /></li>
+          <li>DaelimDuce101</li>
         </div>
         <div className="Rhead">
-          <div>            
+          <div>
             {emailVerified || <Link to="login"><p>로그인</p></Link>}
             {emailVerified || <Link to="signup"><p>회원가입</p></Link>}
             {emailVerified && <Link to="mypage"><p>{name}님 안녕하세요 !</p></Link>}
@@ -86,34 +87,45 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <div className="Menu">
-        <Link to="worldcup"><li><a href="#" target="_self"><img src="img/world.png" />World Cup</a></li></Link>
-        <Link to="meeting"><li><a href="#" target="_self"><img src="img/date.png" />Blind Date</a></li></Link>
-      </div>
-      <div id="wrapper">
+      
+      <div id="wrapper" >
+         
         <div className="Maincard" id="men">
+
           <header>
+            <Link to="/worldcup/vs16">
             <h3>Men</h3>
+            </Link>
           </header>
 
         </div>
+        
         <div className="Maincard" id="girl">
           <header>
+          <Link to="/worldcup/vs8">
             <h3>Girl</h3>
+            </Link>
           </header>
 
         </div>
         <div className="Maincard" id="com">
           <header>
-            <h3>Comming Soon</h3>
+          <Link to="/">
+            <h3>?</h3>
+            </Link>
           </header>
 
         </div>
         <div className="Maincard" id="com">
           <header>
-            <h3>Comming Soon</h3>
+          <Link to="/meeting">
+            <h3>Meeting</h3>
+            </Link>
           </header>
+          </div>
         </div>
+        
+      
       </div>
       {/* <div id="Bwrapper">
         <div className="Bcard">
@@ -131,7 +143,7 @@ const MainPage = () => {
            </div>
         </div>
       </div> */}
-      <div className="footer">
+      {/* <div className="footer">
         <div id="bottomMenu">
           <ul>
             <li><a href="#">회사 소개</a></li>
@@ -140,12 +152,14 @@ const MainPage = () => {
             <li><a href="#">사이트맵</a></li>
           </ul>
 
+
         </div>
-      </div>
+      </div> */}
       {/* <div id="company">
         <p>경기도 수원시 권선구  (대표전화) 123-456-7890</p>
       </div> */}
     </div>
+
 
   )
 
