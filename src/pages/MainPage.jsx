@@ -93,7 +93,7 @@ const MainPage = () => {
         <div className="Maincard" id="men">
 
           <header>
-            <Link to="/worldcup/vs16">
+            <Link to="/worldcup/vsMen">
             <h3>Men</h3>
             </Link>
           </header>
@@ -102,24 +102,24 @@ const MainPage = () => {
         
         <div className="Maincard" id="girl">
           <header>
-          <Link to="/worldcup/vs8">
+          <Link to="/worldcup/vsWomen">
             <h3>Girl</h3>
             </Link>
           </header>
 
         </div>
-        <div className="Maincard" id="com">
+        <div className="Maincard" id="meet">
           <header>
-          <Link to="/">
-            <h3>?</h3>
+          <Link to="/meeting">
+            <h3>Meeting</h3>
             </Link>
           </header>
 
         </div>
         <div className="Maincard" id="com">
           <header>
-          <Link to="/meeting">
-            <h3>Meeting</h3>
+          <Link to="">
+            <h3>?</h3>
             </Link>
           </header>
           </div>

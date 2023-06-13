@@ -213,6 +213,12 @@
     background-color: white;
     background-size: cover;
   }
+  #meet{
+    background-image: url('/public/img/bd.png'); 
+    background-color: white;
+    background-size: 200%;
+    
+  }
   #com{
     /* background-image: url('/public/img/son.jpg'); */
     background-color: white;
