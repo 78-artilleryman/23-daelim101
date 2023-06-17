@@ -43,7 +43,7 @@ const MainPage = () => {
 
   const getUserName = async (uid) => {
     try {
-      const userRef = doc(db, 'user-F', uid);
+      const userRef = doc(db, 'user-M', uid);
       const userDoc = await getDoc(userRef);
 
       if (userDoc.exists()) {
